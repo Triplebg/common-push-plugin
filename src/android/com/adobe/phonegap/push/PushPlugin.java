@@ -53,7 +53,7 @@ public class PushPlugin extends CordovaPlugin implements PushConstants {
     }
 
     @Override
-    public boolean execute(final String action, final JSONArray data, final CallbackContext callbackContext) {
+    public boolean execute(final String action, final JSONArray data, final CallbackContext callbackContext) throws JSONException{
         Log.v(LOG_TAG, "execute: action=" + action);
         gWebView = this.webView;
 
