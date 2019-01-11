@@ -59,7 +59,7 @@ public class PushPlugin extends CordovaPlugin implements PushConstants {
 
         if (INITIALIZE.equals(action)) {
             cordova.getThreadPool().execute(new Runnable() {
-                public void run() throws JSONException{
+                public void run(){
                     pushContext = callbackContext;
                     JSONObject jo = null;
 
@@ -70,17 +70,35 @@ public class PushPlugin extends CordovaPlugin implements PushConstants {
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 					{
 						JSONObject channel = new JSONObject();
-						channel.put(CHANNEL_ID, DEFAULT_CHANNEL_ID);
-						channel.putOpt(CHANNEL_DESCRIPTION, "PhoneGap PushPlugin");
+						try
+						{
+							channel.put(CHANNEL_ID, DEFAULT_CHANNEL_ID);
+							channel.putOpt(CHANNEL_DESCRIPTION, "PhoneGap PushPlugin");
+						}
+						catch(Exception e)
+						{
+							
+						}
 						
 						final NotificationManager notificationManager = (NotificationManager) cordova.getActivity()
 							.getSystemService(Context.NOTIFICATION_SERVICE);
+							
+						NotificationChannel mChannel;
+						String packageName;
+						
+						try
+						{
+							packageName = getApplicationContext().getPackageName();
+							mChannel = new NotificationChannel(channel.getString(CHANNEL_ID),
+								channel.optString(CHANNEL_DESCRIPTION, ""),
+								channel.optInt(CHANNEL_IMPORTANCE, NotificationManager.IMPORTANCE_DEFAULT));
 
-						String packageName = getApplicationContext().getPackageName();
-						NotificationChannel mChannel = new NotificationChannel(channel.getString(CHANNEL_ID),
-							channel.optString(CHANNEL_DESCRIPTION, ""),
-							channel.optInt(CHANNEL_IMPORTANCE, NotificationManager.IMPORTANCE_DEFAULT));
-
+						}
+						catch(Exception e)
+						{
+							
+						}
+						
 						int lightColor = channel.optInt(CHANNEL_LIGHT_COLOR, -1);
 						if (lightColor != -1) 
 						{
