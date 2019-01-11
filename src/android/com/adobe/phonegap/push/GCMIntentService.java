@@ -361,6 +361,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
                         .setTicker(fromHtml(extras.getString(TITLE)))
                         .setContentIntent(contentIntent)
                         //.setDeleteIntent(deleteIntent)
+						.setChannelId(DEFAULT_CHANNEL_ID)
                         .setAutoCancel(true);
 
         SharedPreferences prefs = context.getSharedPreferences(PushPlugin.COM_ADOBE_PHONEGAP_PUSH, Context.MODE_PRIVATE);
