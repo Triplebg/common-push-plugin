@@ -1,6 +1,10 @@
 package com.adobe.phonegap.push;
 
 import android.app.NotificationManager;
+import android.app.NotificationChannel;
+import android.support.v4.app.NotificationCompat;
+import android.content.ContentResolver;
+import android.media.AudioAttributes;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -64,6 +68,10 @@ public class PushPlugin extends CordovaPlugin implements PushConstants {
 
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
 					{
+						JSONObject channel = new JSONObject();
+						channel.put(CHANNEL_ID, DEFAULT_CHANNEL_ID);
+						channel.putOpt(CHANNEL_DESCRIPTION, "PhoneGap PushPlugin");
+						
 						final NotificationManager notificationManager = (NotificationManager) cordova.getActivity()
 							.getSystemService(Context.NOTIFICATION_SERVICE);
 
