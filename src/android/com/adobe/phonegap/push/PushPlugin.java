@@ -84,7 +84,7 @@ public class PushPlugin extends CordovaPlugin implements PushConstants {
 							.getSystemService(Context.NOTIFICATION_SERVICE);
 							
 						NotificationChannel mChannel = null;
-						packageName = getApplicationContext().getPackageName();
+						String packageName = getApplicationContext().getPackageName();
 						
 						try
 						{
